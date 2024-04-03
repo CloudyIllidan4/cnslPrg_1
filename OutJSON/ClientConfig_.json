@@ -1,1 +1,4 @@
-null
+{
+  "boolean_key_1": false,
+  "boolean_key_2": true
+}

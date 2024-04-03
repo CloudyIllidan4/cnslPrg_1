@@ -1,3 +1,4 @@
 {
-  "string_key": "hello, world!"
+  "boolean_key_1": true,
+  "boolean_key_2": false
 }

@@ -12,8 +12,8 @@ int main()
     // Чтение JSON файла
     //setlocale(LC_ALL, "ru");
     //std::string pathInExample = "./InputJSON/exampleJSON.json"; // пример 1
-    std::string pathInExample = "./InputJSON/ClientConfig.json"; // пример 2
-    //std::string pathInExample = "./InputJSON/simpleJSON.json"; // пример 3
+    //std::string pathInExample = "./InputJSON/ClientConfig.json"; // пример 2
+    std::string pathInExample = "./InputJSON/simpleJSON.json"; // пример 3
     std::fstream flIn;
     flIn.open(pathInExample);
     json dataIn = json::parse(flIn);
@@ -24,7 +24,7 @@ int main()
     //std::cout << dataIn.items() << std::endl;
     //json dataOut{};
     //size_t i{ dataIn.size() };
-    json dataOut, nc = converterFunc(dataIn, 0);
+    json dataOut = converterFunc(dataIn);
     //std::cout << nc << std::endl;
     //std::cout << dataOut << std::endl;
     /*
