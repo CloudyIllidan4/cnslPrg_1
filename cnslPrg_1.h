@@ -7,15 +7,39 @@ using json = nlohmann::json;
 
 auto is_primitive(json& jsonIn)
 {
+
 	//if (jsonIn.type() == json::value_t::boolean)
+
 	if (jsonIn.is_boolean())
 	{
 		jsonIn = !jsonIn;
 		return jsonIn;
 	}
+	else if (jsonIn.is_string())
+	{
+		json::string_t&& tempStr = jsonIn.template get<json::string_t>();
+		std::reverse(tempStr.begin(), tempStr.end());
+		//std::cout << " - in begin - " << *jsonIn.begin() << " - type - " << *jsonIn.type_name() << std::endl;
+		jsonIn = tempStr; // ?не понятно как сделать через ссылку (выводит ошибку)?
+		//std::cout << " - in primitive - " << jsonIn << " - type - " << jsonIn.type_name() << std::endl;
+		return jsonIn; // в JSON записывает ключи в алфавитном порядке
+	}
+	else if (jsonIn.is_number_integer())
+	{
+		//jsonIn =+ 1; // ?записывает вместо текущих значений 1?
+		jsonIn = jsonIn + 1;
+		//std::cout << " - if int - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
+		return jsonIn;
+	}
+	else if (jsonIn.is_number_float())
+	{
+		jsonIn = jsonIn + 1.1000f;
+		std::cout << " - if flt - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
+		return jsonIn; // не всегда корректно высчитывает значения (в дробной части)
+	}
 	else
 	{
-		return jsonIn;
+		return jsonIn; // сделать ошибку типа
 	};
 };
 
@@ -23,6 +47,7 @@ json converterFunc(json& jsonIn)
 {
 	try
 	{
+
 		//int n{ number_call }; // счетчик примитивов
 		/*
 		if () // ?был сделан последний вызов из стека?
@@ -31,8 +56,10 @@ json converterFunc(json& jsonIn)
 		};
 		*/
 		//std::cout << jsonIn << std::endl;
+
 		if (jsonIn.is_object())
 		{
+
 			/*
 			json::iterator iter{ jsonIn.begin() };
 			for (auto x{ iter }; x != jsonIn.end(); x++)
@@ -40,13 +67,17 @@ json converterFunc(json& jsonIn)
 			*/
 			//json jsonResult{};
 			//json jsonTemp{};
+
 			for (auto& x : jsonIn.items())
 			{
+
 				//jsonTemp[x.key()] = x.value();
 				//std::cout << x.value().type_name() << std::endl;
-				std::cout << x.key() << " - " << jsonIn[x.key()] << " - 1 - " << *jsonIn[x.key()].type_name() << std::endl;
+
+				std::cout << x.key() << " - " << jsonIn[x.key()] << " - 1st out message - " << *jsonIn[x.key()].type_name() << std::endl;
 				jsonIn[x.key()] = converterFunc(x.value());
 				//std::cout << " - " << jsonIn << " - 2 - " << std::endl;
+
 				/*
 				if (jsonTemp[x.key()].is_boolean()) {
 					jsonTemp[x.key()] = !jsonTemp[x.key()];
@@ -67,30 +98,16 @@ json converterFunc(json& jsonIn)
 				//return jsonResult;
 				//jsonResult[x.key()].operator=(converterFunc(jsonTemp));
 				//std::cout << x.key() << std::endl;	
+
 			};
-			std::cout << jsonIn << " -  - " << *jsonIn.type_name() << std::endl;
+			//std::cout << jsonIn << " -  - " << *jsonIn.type_name() << std::endl;
 			return jsonIn;
+
 			//json jsonTemp = [x.key(), x.value()];
 			//json jsonTemp = json::parse([x.key(), x.value()]);
 			//return converterFunc(jsonTemp);
 		}
 		/*
-		else if (jsonIn.is_boolean())
-		{
-			number_call++;
-			std::cout << jsonIn << " is bool " << std::endl;
-			if (jsonIn == false)
-			{
-				jsonIn.operator=(true);
-			}
-			else
-			{
-				jsonIn.operator=(false);
-			};
-			std::cout << jsonIn << " and now " << std::endl;
-			return jsonIn;
-		}
-
 		/*
 		else if (jsonIn.is_number())
 		{
@@ -149,9 +166,11 @@ json converterFunc(json& jsonIn)
 		*/
 		else
 		{
+
 			//number_call++;
 			//std::cout << "the type of the value N " << number_call << ": " << jsonIn << " - " << jsonIn.type_name() << std::endl;
 			//std::cout << jsonIn.type_name() << std::endl;
+
 			return is_primitive(jsonIn);
 		};
 	}

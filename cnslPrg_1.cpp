@@ -10,10 +10,10 @@ using json = nlohmann::json;
 int main()
 {
     // Чтение JSON файла
-    //setlocale(LC_ALL, "ru");
-    //std::string pathInExample = "./InputJSON/exampleJSON.json"; // пример 1
-    //std::string pathInExample = "./InputJSON/ClientConfig.json"; // пример 2
-    std::string pathInExample = "./InputJSON/simpleJSON.json"; // пример 3
+    //setlocale(LC_ALL, "ru"); // установка локализации для вывода на русском
+    //std::string pathInExample = "./InputJSON/exampleJSON.json"; // путь к JSON-файлу с примером N1
+    //std::string pathInExample = "./InputJSON/ClientConfig.json"; // путь к JSON-файлу с примером N2
+    std::string pathInExample = "./InputJSON/simpleJSON.json"; // путь к JSON-файлу с примером N3
     std::fstream flIn;
     flIn.open(pathInExample);
     json dataIn = json::parse(flIn);
@@ -21,12 +21,13 @@ int main()
     flIn.close();
 
     // Преобразование содержимого
-    //std::cout << dataIn.items() << std::endl;
-    //json dataOut{};
+    
     //size_t i{ dataIn.size() };
-    json dataOut = converterFunc(dataIn);
-    //std::cout << nc << std::endl;
+
+    json dataOut = converterFunc(dataIn); // применяем нашу рекурсивную функцию конвертации
+    
     //std::cout << dataOut << std::endl;
+    
     /*
     //std::cout << dataIn.is_object() << std::endl;
     //json::const_reverse_iterator iter1{ dataIn.crbegin() };
@@ -99,33 +100,13 @@ int main()
         
     };
     */
-    /*
-    if (dataIn)
-    {
 
-    }
-
-    std::cout << "key: " << x.key() << ", value: " << x.value() << '\n';
-
-*/
-
-// Запись в новый JSON
+    // Запись в новый JSON
     std::string pathOutExample = "./OutJSON/ClientConfig_.json";
     std::fstream flOut{};
     flOut.open(pathOutExample, std::ios::out);
     flOut << dataOut;
     flOut.close();
 
-    return 0xFFF;
+    return 0xFF; // Флаг успешного выполнения
 };
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.

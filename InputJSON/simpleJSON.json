@@ -1,4 +1,7 @@
 {
-  "boolean_key_1": true,
-  "boolean_key_2": false
+  "float_key_1": 0.1000,
+  "_key_0": 12.3400,
+  "object_key_1": {
+    "float_key_2": 1000.0000
+  }
 }
