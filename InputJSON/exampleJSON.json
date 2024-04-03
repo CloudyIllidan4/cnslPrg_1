@@ -1,0 +1,7 @@
+{
+  "integer_key": 100,
+  "float_key": 99.9,
+  "string_key": "hello, world!",
+  "array_key": [ 1, 2, 3, 4, 5 ],
+  "boolean_key": false
+}

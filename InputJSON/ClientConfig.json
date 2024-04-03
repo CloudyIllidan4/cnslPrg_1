@@ -1,0 +1,26 @@
+{
+  "connectionOptions": {
+    "socketOption": {
+      "host": "localhost",
+      "port": 502
+    },
+    "autoOpen": true,
+    "autoReconnect": true,
+    "minConnectTime": 2500,
+    "maxReconnectTime": 5000,
+    "noActivityTime": 0,
+    "closeOnDestroy": true,
+    "suppressErrorsAfterDestroy": true
+  },
+  "masterOptions": {
+    "connection": null,
+    "defaultMaxRetries": 1,
+    "defaultTimeout": 100,
+    "defaultUnit": 255,
+    "maxConcurrentTransactions": 1,
+    "retryOnException": false,
+    "suppressTransactionErrors": true,
+    "transport": null
+  },
+  "transportOptions": { "maxBufferLength": 1000 }
+}
