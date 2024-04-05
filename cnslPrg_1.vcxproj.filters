@@ -23,7 +23,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cnslPrg_1.h">
+    <ClInclude Include="Class_1.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

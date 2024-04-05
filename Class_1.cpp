@@ -1,49 +1,45 @@
-#include <nlohmann/json.hpp>
-#include <iostream>
+#include "Class_1.h"
 
 using json = nlohmann::json;
 
-class Class_1
+json Class_1::is_primitive(json& jsonIn)
 {
-	public:
-		json is_primitive(json& jsonIn)
-		{
-			//if (jsonIn.type() == json::value_t::boolean)
-			if (jsonIn.is_boolean())
-			{
-				jsonIn = !jsonIn;
-				return jsonIn;
-			}
-			else if (jsonIn.is_string())
-			{
-				json::string_t&& tempStr = jsonIn.template get<json::string_t>();
-				std::reverse(tempStr.begin(), tempStr.end());
-				//std::cout << " - in begin - " << *jsonIn.begin() << " - type - " << *jsonIn.type_name() << std::endl;
-				jsonIn = tempStr; // ?не понятно как сделать через ссылку (выводит ошибку)?
-				//std::cout << " - in primitive - " << jsonIn << " - type - " << jsonIn.type_name() << std::endl;
-				return jsonIn; // в JSON записывает ключи в алфавитном порядке
-			}
-			else if (jsonIn.is_number_integer())
-			{
-				//jsonIn =+ 1; // ?записывает вместо текущих значений 1?
-				jsonIn = jsonIn + 1;
-				//std::cout << " - if int - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
-				return jsonIn;
-			}
-			else if (jsonIn.is_number_float())
-			{
-				jsonIn = jsonIn + 1.1000f;
-				std::cout << " - if flt - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
-				return jsonIn; // не всегда корректно высчитывает значения (в дробной части)
-			}
-			else
-			{
-				return jsonIn; // сделать ошибку типа
-			};
-		};
+	//if (jsonIn.type() == json::value_t::boolean)
+	if (jsonIn.is_boolean())
+	{
+		jsonIn = !jsonIn;
+		return jsonIn;
+	}
+	else if (jsonIn.is_string())
+	{
+		json::string_t&& tempStr = jsonIn.template get<json::string_t>();
+		std::reverse(tempStr.begin(), tempStr.end());
+		//std::cout << " - in begin - " << *jsonIn.begin() << " - type - " << *jsonIn.type_name() << std::endl;
+		jsonIn = tempStr; // ?не понятно как сделать через ссылку (выводит ошибку)?
+		//std::cout << " - in primitive - " << jsonIn << " - type - " << jsonIn.type_name() << std::endl;
+		return jsonIn; // в JSON записывает ключи в алфавитном порядке
+	}
+	else if (jsonIn.is_number_integer())
+	{
+		//jsonIn =+ 1; // ?записывает вместо текущих значений 1?
+		jsonIn = jsonIn + 1;
+		//std::cout << " - if int - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
+		return jsonIn;
+	}
+	else if (jsonIn.is_number_float())
+	{
+		jsonIn = jsonIn + 1.1000f;
+		std::cout << " - if flt - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
+		return jsonIn; // не всегда корректно высчитывает значения (в дробной части)
+	}
+	else
+	{
+		return jsonIn; // сделать ошибку типа
+	};
+};
 
-		json converterFunc(json& jsonIn)
-		{
+json Class_1::converterFunc(json & jsonIn)
+{
 			try
 			{
 				//int n{ number_call }; // счетчик примитивов
@@ -97,5 +93,4 @@ class Class_1
 			{
 				std::cerr << e;
 			};
-		};
 };

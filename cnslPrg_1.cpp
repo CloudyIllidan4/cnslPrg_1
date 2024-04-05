@@ -1,5 +1,7 @@
 ﻿// cnslPrg_1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-#include "cnslPrg_1.h"
+#include "Class_1.h"
+
+using json = nlohmann::json;
 
 int main()
 {
@@ -16,6 +18,7 @@ int main()
 
     // Преобразование содержимого
     //size_t i{ dataIn.size() };
+    Class_1 MainClass{};
     json dataOut = MainClass.converterFunc(dataIn); // применяем нашу рекурсивную функцию конвертации
     //std::cout << dataOut << std::endl;
 

@@ -136,7 +136,7 @@
     <ClCompile Include="cnslPrg_1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cnslPrg_1.h" />
+    <ClInclude Include="Class_1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
