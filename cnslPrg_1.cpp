@@ -1,19 +1,13 @@
 ﻿// cnslPrg_1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-#include <nlohmann/json.hpp>
-#include <fstream>
-#include <iostream>
 #include "cnslPrg_1.h"
-
-using json = nlohmann::json;
 
 int main()
 {
     // Чтение JSON файла
     //setlocale(LC_ALL, "ru"); // установка локализации для вывода на русском
     //std::string pathInExample = "./InputJSON/exampleJSON.json"; // путь к JSON-файлу с примером N1
-    //std::string pathInExample = "./InputJSON/ClientConfig.json"; // путь к JSON-файлу с примером N2
-    std::string pathInExample = "./InputJSON/simpleJSON.json"; // путь к JSON-файлу с примером N3
+    std::string pathInExample = "./InputJSON/ClientConfig.json"; // путь к JSON-файлу с примером N2
+    //std::string pathInExample = "./InputJSON/simpleJSON.json"; // путь к JSON-файлу с примером N3
     std::fstream flIn;
     flIn.open(pathInExample);
     json dataIn = json::parse(flIn);
@@ -22,7 +16,7 @@ int main()
 
     // Преобразование содержимого
     //size_t i{ dataIn.size() };
-    json dataOut = converterFunc(dataIn); // применяем нашу рекурсивную функцию конвертации
+    json dataOut = MainClass.converterFunc(dataIn); // применяем нашу рекурсивную функцию конвертации
     //std::cout << dataOut << std::endl;
 
     // Запись в новый JSON

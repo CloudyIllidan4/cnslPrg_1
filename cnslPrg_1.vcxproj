@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Class_1.cpp" />
     <ClCompile Include="cnslPrg_1.cpp" />
   </ItemGroup>
   <ItemGroup>
