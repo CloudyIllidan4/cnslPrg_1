@@ -8,8 +8,8 @@ int main()
     // Чтение JSON файла
     //setlocale(LC_ALL, "ru"); // установка локализации для вывода на русском
     //std::string pathInExample = "./InputJSON/exampleJSON.json"; // путь к JSON-файлу с примером N1
-    std::string pathInExample = "./InputJSON/ClientConfig.json"; // путь к JSON-файлу с примером N2
-    //std::string pathInExample = "./InputJSON/simpleJSON.json"; // путь к JSON-файлу с примером N3
+    //std::string pathInExample = "./InputJSON/ClientConfig.json"; // путь к JSON-файлу с примером N2
+    std::string pathInExample = "./InputJSON/simpleJSON.json"; // путь к JSON-файлу с примером N3
     std::fstream flIn;
     flIn.open(pathInExample);
     json dataIn = json::parse(flIn);

@@ -4,44 +4,65 @@ using json = nlohmann::json;
 
 json Class_1::is_primitive(json& jsonIn)
 {
-	//if (jsonIn.type() == json::value_t::boolean)
-	if (jsonIn.is_boolean())
+	try
 	{
-		jsonIn = !jsonIn;
+		//if (jsonIn.type() == json::value_t::boolean)
+		if (jsonIn.is_boolean())
+		{
+			jsonIn = !jsonIn;
+			return jsonIn;
+		}
+		else if (jsonIn.is_string())
+		{
+			json::string_t&& tempStr = jsonIn.template get<json::string_t>();
+			std::reverse(tempStr.begin(), tempStr.end());
+			//std::cout << " - in begin - " << *jsonIn.begin() << " - type - " << *jsonIn.type_name() << std::endl;
+			jsonIn = tempStr; // ?не понятно как сделать через ссылку (выводит ошибку)?
+			//std::cout << " - in primitive - " << jsonIn << " - type - " << jsonIn.type_name() << std::endl;
+			return jsonIn; // в JSON записывает ключи в алфавитном порядке
+		}
+		else if (jsonIn.is_number_integer())
+		{
+			//jsonIn =+ 1; // ?записывает вместо текущих значений 1?
+			jsonIn = jsonIn + 1;
+			//std::cout << " - if int - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
+			return jsonIn;
+		}
+		else if (jsonIn.is_number_float())
+		{
+			jsonIn = jsonIn + 1.1000f;
+			//std::cout << " - if flt - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
+			return jsonIn; // не всегда корректно высчитывает значения (в дробной части)
+		}
+		else if (jsonIn.is_null())
+		{
+			return jsonIn;
+		}
+		/*
+		else if (jsonIn.is_discarded())
+		{
+			jsonIn += null;
+			return jsonIn;
+		}
+		*/
+		else
+		{
+			throw myTypeException;
+			//return jsonIn;
+		};
+	}
+	catch (const std::exception& ex)
+	{
+		std::cerr << "Exception for " << jsonIn << "value: " << ex.what() << std::endl;
+		//jsonIn.back() = json::binary({1,2,3});
 		return jsonIn;
-	}
-	else if (jsonIn.is_string())
-	{
-		json::string_t&& tempStr = jsonIn.template get<json::string_t>();
-		std::reverse(tempStr.begin(), tempStr.end());
-		//std::cout << " - in begin - " << *jsonIn.begin() << " - type - " << *jsonIn.type_name() << std::endl;
-		jsonIn = tempStr; // ?не понятно как сделать через ссылку (выводит ошибку)?
-		//std::cout << " - in primitive - " << jsonIn << " - type - " << jsonIn.type_name() << std::endl;
-		return jsonIn; // в JSON записывает ключи в алфавитном порядке
-	}
-	else if (jsonIn.is_number_integer())
-	{
-		//jsonIn =+ 1; // ?записывает вместо текущих значений 1?
-		jsonIn = jsonIn + 1;
-		//std::cout << " - if int - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
-		return jsonIn;
-	}
-	else if (jsonIn.is_number_float())
-	{
-		jsonIn = jsonIn + 1.1000f;
-		std::cout << " - if flt - " << jsonIn << " - type - " << *jsonIn.type_name() << std::endl;
-		return jsonIn; // не всегда корректно высчитывает значения (в дробной части)
-	}
-	else
-	{
-		return jsonIn; // сделать ошибку типа
 	};
 };
 
 json Class_1::converterFunc(json & jsonIn)
 {
-			try
-			{
+			//try
+		//	{
 				//int n{ number_call }; // счетчик примитивов
 				/*
 				if () // ?был сделан последний вызов из стека?
@@ -71,10 +92,10 @@ json Class_1::converterFunc(json & jsonIn)
 				}
 				else if (jsonIn.is_array())
 				{
-					int maxIndex = (jsonIn.size() == 0) ? 0 : (jsonIn.size() - 1);
+					json::size_type maxIndex = (jsonIn.size() == 0) ? 0 : (jsonIn.size() - 1);
 					//std::cout << " - array size - " << maxIndex << std::endl;
 					json tempArray{};
-					for (int j{}; j <= (maxIndex); j++)
+					for (json::size_type j{}; j <= (maxIndex); j++)
 					{
 						tempArray[j] = converterFunc(jsonIn[maxIndex - j]);
 						//std::cout << " - array value - " << tempArray[j] << " - type - " << *tempArray[j].type_name() << std::endl;
@@ -88,9 +109,12 @@ json Class_1::converterFunc(json & jsonIn)
 					//std::cout << "the type of the value N " << number_call << ": " << jsonIn << " - " << jsonIn.type_name() << std::endl;
 					return is_primitive(jsonIn);
 				};
+				/*
 			}
-			catch (const char* e)
+			catch (const json::exception& ex)
 			{
-				std::cerr << e;
+				std::cerr << "Exception ID: " << ex.id << ", Error: " << ex.what() << std::endl;
+				return jsonIn;
 			};
+			*/
 };
