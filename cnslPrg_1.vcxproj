@@ -139,9 +139,11 @@
   <ItemGroup>
     <ClCompile Include="Class_1.cpp" />
     <ClCompile Include="cnslPrg_1.cpp" />
+    <ClCompile Include="MyExceptionClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class_1.h" />
+    <ClInclude Include="MyExceptionClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

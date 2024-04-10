@@ -1,13 +1,20 @@
 #pragma once
 #include <fstream>
-#include <nlohmann/json.hpp>
+#include "MyExceptionClass.h"
 #include <iostream>
 
 class Class_1
 {
 public:
+	Class_1(nlohmann::json& jsonIn)
+	{
+		nlohmann::json classObject{ jsonIn };
+		nlohmann::json::exception* exceptionObject{};
+	};
 	nlohmann::json is_primitive(nlohmann::json& jsonIn);
 	nlohmann::json converterFunc(nlohmann::json& jsonIn);
+
+	//nlohmann::json emptyBox{};
 //private:
-	const std::exception myTypeException{ "the transmitted value type is not supported, set default (null)" };
+	nlohmann::json exceptionTypeFunc(nlohmann::json& jsonIn);
 };
