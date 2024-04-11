@@ -18,7 +18,7 @@ int main()
 
     // Преобразование содержимого
     //size_t i{ dataIn.size() };
-    Class_1 MainClass{};
+    Class_1 *MainClass = new Class_1();
     json dataOut = MainClass.converterFunc(dataIn); // применяем нашу рекурсивную функцию конвертации
     //std::cout << dataOut << std::endl;
 

@@ -47,13 +47,13 @@ json Class_1::is_primitive(json& jsonIn)
 		*/
 		else
 		{
-			throw json::exception();
+			//throw json::exception();
 			//myExceptionClass exceptionInstance_1{};
-			//throw myExceptionClass;
+			throw exceptionTypeFunc(jsonIn);
 			//return jsonIn;
 		};
 	}
-	catch (const json::exception& ex)
+	catch (const std::exception& ex)
 	{
 		std::cerr << "Exception for " << jsonIn << "value: " << ex.what() << std::endl;
 		//jsonIn.back() = json::binary({1,2,3});
@@ -121,10 +121,22 @@ json Class_1::converterFunc(json & jsonIn)
 			*/
 };
 
-json Class_1::exceptionTypeFunc(json& jsonIn)
+std::exception Class_1::exceptionTypeFunc(json& jsonIn)
 {
-	json::type_error myTypeException;
-	myTypeException.what() = "the transmitted value type is not supported";
-	throw myTypeException;
-	return jsonIn;
-}
+	//json::type_error myTypeException;
+	//char exceptionMessage = "the transmitted value type is not supported";
+	std::string exceptionMessage{ "the transmitted value type" };
+	//exceptionMessage += ("the transmitted value type ");
+	//, std::to_string(jsonIn.type()) + "for this Id is not supported");
+	char* buffer{};
+	sprintf(buffer, "%s%d", exceptionMessage.c_str(), jsonIn.type());
+	//std:: result(buffer);
+	int exceptionId = jsonIn.size();
+	std::exception myException{ buffer, exceptionId };
+	return myException;
+};
+
+Class_1::Class_1()
+{
+	Class_1 classObject{};
+};
